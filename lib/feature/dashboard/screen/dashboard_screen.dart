@@ -172,7 +172,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     SizedBox(height: 8),
                     textXbtn(
-                      text: "Categories",
+                      text: "Categories f",
                       tap: () {},
                     ),
                     Row(

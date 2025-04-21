@@ -17,6 +17,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     '2022',
     'United Stored',
   ];
+
   @override
   void initState() {
     Get.put(ThemeController(sharedPreferences: Get.find()));
@@ -172,7 +173,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     SizedBox(height: 8),
                     textXbtn(
-                      text: "Categories f",
+                      text: "Categories",
                       tap: () {},
                     ),
                     Row(

@@ -7,3 +7,10 @@ export 'dialog/exit_dialog.dart';
 export 'dialog/warning_dialog.dart';
 
 export 'pop/will_pop.dart';
+
+export 'read/read_more.dart';
+
+export 'star/partialclipper.dart';
+export 'star/star.dart';
+
+export 'painting/round_tap.dart';

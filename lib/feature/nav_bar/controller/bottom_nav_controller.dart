@@ -7,21 +7,14 @@ class BottomNavController extends GetxController {
   int selectedIndex = 0;
   List<Widget> screen = [
     DashboardScreen(),
-    Center(
-      child: Text('1'),
-    ),
-    Center(
-      child: Text('1'),
-    ),
-    Center(
-      child: Text('1'),
-    ),
-    Center(
-      child: Text('1'),
-    ),
+    ExploreScreen(),
+    LiveTvScreen(),
+    MylistScreen(),
+    ProfileScreen(),
   ];
   changeScreen(int index) {
     selectedIndex = index;
     update();
   }
+
 }

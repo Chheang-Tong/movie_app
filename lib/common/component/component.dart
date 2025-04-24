@@ -1,3 +1,4 @@
+export 'button/dropdown_btn.dart';
 export 'button/loading_button.dart';
 export 'button/round_button.dart';
 
@@ -14,3 +15,5 @@ export 'star/partialclipper.dart';
 export 'star/star.dart';
 
 export 'painting/round_tap.dart';
+
+export 'rate/rating.dart';

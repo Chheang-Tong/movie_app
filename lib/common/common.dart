@@ -2,6 +2,7 @@
 export 'component/component.dart';
 // controller
 export 'controller/localizationcontroller.dart';
+export 'controller/rotate_controller.dart';
 export 'controller/theme_controller.dart';
 // model
 export 'model/country_model.dart';

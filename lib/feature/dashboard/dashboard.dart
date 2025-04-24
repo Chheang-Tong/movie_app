@@ -4,7 +4,3 @@
 // screen
 export 'screen/dashboard_screen.dart';
 // widget
-export 'widget/about_widget.dart';
-export 'widget/comment_widget.dart';
-export 'widget/more_widget.dart';
-export 'widget/video.dart';

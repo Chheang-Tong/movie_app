@@ -12,23 +12,51 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  @override
-  void initState() {
-    Get.put(BottomNavController());
-    super.initState();
-  }
+  final BottomNavController controller= Get.put(BottomNavController());
+ 
+
+  late Offset position;
+  List<Offset> corners = [];
 
   @override
-  void dispose() {
-    super.dispose();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Size size = MediaQuery.of(context).size;
+    position = Offset(
+        size.width - size.width / 2 - 10, size.height - size.height / 3 + 30);
   }
+
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    corners = [
+      Offset(10, 50), // Top Left
+      Offset(size.width - size.width / 2, 50), // Top Right
+      Offset(size.width - size.width / 2 - 10,
+          size.height - size.height / 3 + 30), // Bottom Right
+      Offset(10, size.height - size.height / 3 + 30), // Bottom Left
+    ];
     return GetBuilder<BottomNavController>(builder: (controller) {
       return Scaffold(
         extendBody: true,
-        body: controller.screen[controller.selectedIndex],
+        body: Stack(children: [
+          controller.screen[controller.selectedIndex],
+          Positioned(
+            left: position.dx,
+            top: position.dy,
+            child: Draggable(
+              feedback: miniPlay(),
+              childWhenDragging: Container(),
+              onDragEnd: (details) {
+                setState(() {
+                  position = _getNearestCorner(details.offset);
+                });
+              },
+              child: miniPlay(),
+            ),
+          ),
+        ]),
         bottomNavigationBar: Container(
           height: 60,
           padding: EdgeInsets.only(top: 10),
@@ -87,5 +115,70 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
       );
     });
+  }
+
+  Offset _getNearestCorner(Offset dragOffset) {
+    return corners.reduce(
+      (closest, current) =>
+          (dragOffset - current).distance < (dragOffset - closest).distance
+              ? current
+              : closest,
+    );
+  }
+
+  Widget miniPlay() {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+      width: size.width / 2,
+      height: size.height / 5,
+      decoration: BoxDecoration(
+        color: Colors.green,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Stack(
+        children: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.close)),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              alignment: Alignment.center,
+              height: 45,
+              decoration: BoxDecoration(
+                color: ColorResources.colorGrey,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.replay_10,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.play_arrow,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.forward_10,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

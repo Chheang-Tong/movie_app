@@ -12,16 +12,24 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  final orientationController = Get.put(OrientationController());
   List<String> text = [
     'Action',
     '2022',
     'United Stored',
   ];
+  final String tag = 'live';
 
   @override
   void initState() {
     Get.put(ThemeController(sharedPreferences: Get.find()));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<OrientationController>(); // This triggers onClose
+    super.dispose();
   }
 
   @override
@@ -275,65 +283,79 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    height: size.height * 0.15,
-                                    width: size.width * 0.5,
-                                    margin: EdgeInsets.all(4),
-                                    decoration: BoxDecoration(
-                                      color: ColorResources.blueGreyColor,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Center(
-                                          child: IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.play_circle,
-                                              size: 35,
-                                            ),
-                                          ),
+                                  Hero(
+                                    tag: 'live_$index',
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: Container(
+                                        height: size.height * 0.15,
+                                        width: size.width * 0.5,
+                                        margin: EdgeInsets.all(4),
+                                        decoration: BoxDecoration(
+                                          color: ColorResources.blueGreyColor,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
-                                        Positioned(
-                                          bottom: 10,
-                                          left: 10,
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 4,
-                                              vertical: 2,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              color:
-                                                  ColorResources.cardColorDark,
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  margin: EdgeInsets.all(2.0),
-                                                  height: 8,
-                                                  width: 8,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color:
-                                                        ColorResources.redColor,
-                                                  ),
+                                        child: Stack(
+                                          children: [
+                                            Center(
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  Get.toNamed(
+                                                      RouteHelper.liveScreen,
+                                                      arguments: {
+                                                        'live': 'live_$index'
+                                                      });
+                                                },
+                                                icon: Icon(
+                                                  Icons.play_circle,
+                                                  size: 35,
                                                 ),
-                                                Text(
-                                                  'Live',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Urbanist',
-                                                    color: ColorResources
-                                                        .colorWhite,
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
+                                            Positioned(
+                                              bottom: 10,
+                                              left: 10,
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 4,
+                                                  vertical: 2,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  color: ColorResources
+                                                      .cardColorDark,
+                                                ),
+                                                alignment: Alignment.center,
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      margin:
+                                                          EdgeInsets.all(2.0),
+                                                      height: 8,
+                                                      width: 8,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: ColorResources
+                                                            .redColor,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Live',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Urbanist',
+                                                        color: ColorResources
+                                                            .colorWhite,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                   Padding(

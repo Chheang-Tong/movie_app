@@ -3,3 +3,8 @@ export 'dashboard/dashboard.dart';
 export 'nav_bar/nav_bar.dart';
 export 'onboard/onboard.dart';
 export 'splash/splash.dart';
+export 'video/video.dart';
+export 'my_list/my_list.dart';
+export 'live_tv/live_tv.dart';
+export 'explore/explore.dart';
+export 'profile/profile.dart';

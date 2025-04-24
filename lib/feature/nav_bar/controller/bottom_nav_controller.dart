@@ -5,6 +5,7 @@ import '../../feature.dart';
 
 class BottomNavController extends GetxController {
   int selectedIndex = 0;
+  bool isShow = true;
   List<Widget> screen = [
     DashboardScreen(),
     ExploreScreen(),
@@ -17,4 +18,8 @@ class BottomNavController extends GetxController {
     update();
   }
 
+  void changeShow() {
+    isShow = !isShow;
+    update();
+  }
 }

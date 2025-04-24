@@ -12,8 +12,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  final BottomNavController controller= Get.put(BottomNavController());
- 
+  final BottomNavController controller = Get.put(BottomNavController());
 
   late Offset position;
   List<Offset> corners = [];
@@ -25,7 +24,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
     position = Offset(
         size.width - size.width / 2 - 10, size.height - size.height / 3 + 30);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +40,21 @@ class _BottomNavBarState extends State<BottomNavBar> {
         extendBody: true,
         body: Stack(children: [
           controller.screen[controller.selectedIndex],
-          Positioned(
-            left: position.dx,
-            top: position.dy,
-            child: Draggable(
-              feedback: miniPlay(),
-              childWhenDragging: Container(),
-              onDragEnd: (details) {
-                setState(() {
-                  position = _getNearestCorner(details.offset);
-                });
-              },
-              child: miniPlay(),
+          if (controller.isShow)
+            Positioned(
+              left: position.dx,
+              top: position.dy,
+              child: Draggable(
+                feedback: miniPlay(),
+                childWhenDragging: Container(),
+                onDragEnd: (details) {
+                  setState(() {
+                    position = _getNearestCorner(details.offset);
+                  });
+                },
+                child: miniPlay(),
+              ),
             ),
-          ),
         ]),
         bottomNavigationBar: Container(
           height: 60,
@@ -137,7 +136,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       child: Stack(
         children: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.close)),
+          IconButton(
+              onPressed: () {
+                controller.changeShow();
+              },
+              icon: Icon(Icons.close)),
           Positioned(
             bottom: 0,
             left: 0,
